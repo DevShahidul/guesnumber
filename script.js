@@ -3,6 +3,7 @@
 let secureNumber;
 let score = 20;
 let highScore = 0;
+const guesNumberField = document.getElementById("guesNumber")
 
 function setSecureNumber() {
    secureNumber = Number(Math.trunc(Math.random() * 20) + 1);
@@ -11,13 +12,13 @@ function setSecureNumber() {
 setSecureNumber();
 
 document.querySelector(".check-btn").addEventListener("click", function () {
-   const guesNumber = Number(document.getElementById("guesNumber").value);
+   const guesNumber = Number(guesNumberField.value);
    console.log("Highscore:", highScore, " Score:", score, "secureNumber:", secureNumber);
    if (!guesNumber) {
       setContent(".message", "😒 No number!");
    } else if (guesNumber === secureNumber) {
-      this.setAttribute("class", "btn check-btn disabled");
-      document.getElementById("guesNumber").disabled = true;
+      this.classList.add("disabled");
+      guesNumberField.disabled = true;
       setContent(".message", "👌 Correct Number!");
       setBodyBg("green");
       setWidth("6rem");
@@ -28,7 +29,7 @@ document.querySelector(".check-btn").addEventListener("click", function () {
       }
    } else if (guesNumber !== secureNumber) {
       if (score > 1) {
-         document.querySelector(".message").textContent = guesNumber < secureNumber ? "📉 To Low" : "📈 To High";
+         setContent(".message", guesNumber < secureNumber ? "📉 To Low" : "📈 To High");
          score--
          setContent(".score", score);
       } else {
@@ -39,10 +40,10 @@ document.querySelector(".check-btn").addEventListener("click", function () {
 });
 
 document.querySelector(".reset-btn").addEventListener("click", function () {
-   document.querySelector(".check-btn").setAttribute("class", "btn check-btn");
-   document.getElementById("guesNumber").disabled = false;
+   document.querySelector(".check-btn").classList.remove("disabled");
+   guesNumberField.disabled = false;
    setSecureNumber()
-   document.getElementById("guesNumber").value = '';
+   guesNumberField.value = '';
    setBodyBg("black");
    setContent(".secure-number", "?")
    setContent(".message", "Start guessing...");
