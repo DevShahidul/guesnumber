@@ -35,6 +35,8 @@ document.querySelector(".check-btn").addEventListener("click", function () {
       } else {
          setContent(".message", "🤦‍♂️ You losed the game!");
          setBodyBg("#700101");
+         score = 0;
+         setContent(".score", score);
       }
    }
 });
